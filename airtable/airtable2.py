@@ -15,7 +15,7 @@ def insert():
 
 def update():
     record = airtable.match("Name", "name1")
-    fields = {"INT":500}
+    fields = {"INT":200}
     #airtable.replace(record["id"], fields)
     airtable.update(record["id"], fields)
 
