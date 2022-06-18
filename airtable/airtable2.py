@@ -19,4 +19,4 @@ def update():
     #airtable.replace(record["id"], fields)
     airtable.update(record["id"], fields)
 
-update()
+insert()
