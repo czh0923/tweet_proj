@@ -49,30 +49,28 @@
         <p>
           <button id="submitButton" type="Submit" > Submit </button> 
           <py-script>
-            from js import document 
-            from pyodide import create_proxy
+            <!-- from js import document 
+            from pyodide import create_proxy -->
 
             from airtable import Airtable
+
+            print("here")
 
             base_id = "app0HYDUVfrBVLFV2"
             table_name = "ex_tweets"
             api_key = "keyQUcYkOoAkjWXTV"
 
             airtable = Airtable(base_id, table_name, api_key)
+            insertData = airtable.insert({'Name': 'czh'})
 
-            def insert(x):
+            <!-- def insert():
                 print("i am here")
-                print(airtable)
-                <!-- insertData = airtable.insert({'Name': 'czh'}) -->
-                record = airtable.match("Name", "name1")
-                fields = {"INT":200}
-                <!-- airtable.replace(record["id"], fields) -->
-                airtable.update(record["id"], fields)
-                <!-- airtable.update() -->
+                insertData = airtable.insert({'Name': 'czh'})
+        
+            insert() -->
+            <!-- function_proxy = create_proxy(insert)
             
-            function_proxy = create_proxy(insert)
-            
-            document.getElementById("submitButton").addEventListener("click", function_proxy)
+            document.getElementById("submitButton").addEventListener("click", function_proxy) -->
             </py-script>
         </p>
 
