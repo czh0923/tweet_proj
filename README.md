@@ -13,5 +13,7 @@ switching to javascript
 javascript: https://www.youtube.com/watch?v=PkZNo7MFNFg
 javascript, html, css: https://www.youtube.com/watch?v=_GTMOmRrqkU
 
-pending: https://github.com/airtable/airtable.js/
+https://github.com/airtable/airtable.js/
+https://community.airtable.com/t/help-connecting-to-airtable-api-to-make-a-basic-console-log-output/33730
+
 
