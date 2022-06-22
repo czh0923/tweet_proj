@@ -13,6 +13,15 @@ const retrieved_records = [];
 
 const getRecords = async() => {
   const records = await table.select({maxRecords: 3, view: "Grid view"}).firstPage();
+
+  console.log(records);
+
+  // console.log(typeof records);
+
+  // const p = new Promise((resolve, reject) => {console.log("ha")})
+
+  // console.log("wow", typeof p);
+
   records.forEach(function(record) {
     console.log('Retrieved', record.get('Name'));
     console.log("retrieved record id", record.getId());

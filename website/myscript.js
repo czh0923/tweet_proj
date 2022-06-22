@@ -15,24 +15,22 @@ const table_result = base('result');
 const retrieved_records_content = [];
 
 const getRecords = async () => {
-  const records = await table_tweets.select({maxRecords: 3, view: "Grid view"}).firstPage();
-  records.forEach(function(record) {
-    console.log('Retrieved', record.get('Name'));
-    console.log("retrieved record id", record.getId());
-    // console.log('Retrieved', record.get('content'));
-    if (retrieved_records_content.length == 0) {
-        const firstTweet = record.get('content');
-        document.getElementById("1st").innerHTML += firstTweet;
-    } else if (retrieved_records_content.length == 1) {
-        const secondTweet = record.get('content');
-        document.getElementById("2nd").innerHTML += secondTweet;
-    } else if (retrieved_records_content.length == 2) {
-        const thirdTweet = record.get('content');
-        document.getElementById("3rd").innerHTML += thirdTweet;
-    }
-    retrieved_records_content.push(record.get('content'));
-    // console.log("current content list", retrieved_records_content);
-})
+    const records = await table_tweets.select({maxRecords: 3, view: "Grid view"}).firstPage();
+    records.forEach(function(record) {
+        console.log('Retrieved', record.get('Name'));
+        console.log("retrieved record id", record.getId());
+        // console.log('Retrieved', record.get('content'));
+
+        retrieved_records_content.push(record.get('content'));
+    })
+
+    let firstTweet = retrieved_records_content[0];
+    let secondTweet = retrieved_records_content[1];
+    let thirdTweet = retrieved_records_content[2];
+
+    document.getElementById("1st").innerHTML += firstTweet;
+    document.getElementById("2nd").innerHTML += secondTweet;
+    document.getElementById("3rd").innerHTML += thirdTweet;
 };
 
 getRecords();
