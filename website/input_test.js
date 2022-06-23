@@ -15,7 +15,12 @@ const table_result = base('result');
 const retrieved_records_id = []
 
 const getRecords = async () => {
-    const records = await table_tweets.select({maxRecords: 3, view: "Grid view"}).firstPage();
+    try {
+        var records = await table_tweets.select({maxRecords: 3, view: "Grid view"}).firstPage();
+    } catch {
+        goToErrorPage();
+        return;
+    }
 
     let retrieved_records_content = [];
     records.forEach(function(record) {
@@ -41,7 +46,7 @@ getRecords();
 
 // getting chosen values and inserting into database (table_result)
 
-function getValueAndInsert() {
+async function getValueAndInsert() {
     let value1 = document.querySelector('input[name=Choices1]:checked').value;
     let value2 = document.querySelector('input[name=Choices2]:checked').value;
     let value3 = document.querySelector('input[name=Choices3]:checked').value;
@@ -71,21 +76,31 @@ function getValueAndInsert() {
         }
     ]
 
-    insert(table_result, collected_data);
+    await insert(table_result, collected_data);
+
+    // console.log("here?");
+
+    goToThanks();
 
 }
 
-function insert(target_table, data) {
-    target_table.create(data, function(err, records) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        records.forEach(function (record) {
-          console.log(record.getId());
-        });
-    });
+async function insert(target_table, data) {
+    try {
+        await target_table.create(data);
+    } catch {
+        goToErrorPage();
+        return;
+    }
 
+}
+
+function goToThanks() {
+    console.log("clicking here");
+    document.location.href = "thanks.html";
+}
+
+function goToErrorPage() {
+    document.location.href = "error.html";
 }
 
 
