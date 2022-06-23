@@ -10,12 +10,12 @@ const table_tweets = base('ex_tweets');
 const table_result = base('result');
 
 
-// building tweets and presenting on the webpage
-
-const retrieved_records_content = [];
+// getting tweets and presenting on the webpage
 
 const getRecords = async () => {
     const records = await table_tweets.select({maxRecords: 3, view: "Grid view"}).firstPage();
+
+    let retrieved_records_content = [];
     records.forEach(function(record) {
         console.log('Retrieved', record.get('Name'));
         console.log("retrieved record id", record.getId());
