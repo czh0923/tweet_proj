@@ -12,12 +12,16 @@ const table_result = base('result');
 
 // getting tweets and presenting on the webpage
 
-const retrieved_records_id = []
-const retrieved_records_visited = []
+const presented_num = 3;
+const choice_list = ["Choices1", "Choices2", "Choices3"];
+
+
+const retrieved_records_id = [];
+const retrieved_records_visited = [];
 
 const getRecords = async () => {
     try {
-        var records = await table_tweets.select({maxRecords: 3, view: "Grid view"}).firstPage();
+        var records = await table_tweets.select({maxRecords: presented_num, view: "Grid view"}).firstPage();
     } catch {
         goToErrorPage();
         return;
@@ -32,13 +36,9 @@ const getRecords = async () => {
         retrieved_records_visited.push(record.get('visited'));
     })
 
-    let firstTweet = retrieved_records_content[0];
-    let secondTweet = retrieved_records_content[1];
-    let thirdTweet = retrieved_records_content[2];
-
-    document.getElementById("1st").innerHTML += firstTweet;
-    document.getElementById("2nd").innerHTML += secondTweet;
-    document.getElementById("3rd").innerHTML += thirdTweet;
+    for (let i = 0; i < presented_num; i++) {
+        document.getElementById((i+1).toString() + "Tweet").innerHTML += retrieved_records_content[i]; // div id starting at 1, not 0
+    }
 };
 
 getRecords();
@@ -50,36 +50,25 @@ getRecords();
 async function userSubmit() {
 
     // getting chosen values
-    let choice_list = ["Choices1"];
-    //let value1 = document.querySelector('input[name=${choice_list[0]}]:checked').value;
-    let value1 = document.querySelector('input[name=Choices1]:checked').value;
-    let value2 = document.querySelector('input[name=Choices2]:checked').value;
-    let value3 = document.querySelector('input[name=Choices3]:checked').value;
+    let value_list = [];
 
+    for (let i = 0; i < presented_num; i++) {
+        value_list.push(document.querySelector('input[name=' + CSS.escape(choice_list[i]) + ']:checked').value);
+    }
 
-    console.log(retrieved_records_id);
-    console.log(value1, value2, value3);
+    let collected_data = [];
 
+    for (let i = 0; i < presented_num; i++) {
+        collected_data.push( 
+            { "fields" : {
+                "ID": retrieved_records_id[i],
+                "Choice": value_list[i]
+                }   
+            }
+        );
+    }
 
-    collected_data = [
-        { "fields" : {
-            "ID": retrieved_records_id[0],
-            "Choice": value1
-            }   
-        },
-        { "fields" : {
-            "ID": retrieved_records_id[1],
-            "Choice": value2
-            } 
-
-        },
-        { "fields" : {
-            "ID": retrieved_records_id[2],
-            "Choice": value3
-            } 
-
-        }
-    ]
+    console.log("here", collected_data);
 
     // inserting into result db
     await insert(table_result, collected_data);
@@ -88,7 +77,7 @@ async function userSubmit() {
     await updateVisited(table_tweets);
 
     // go to thanks page
-    goToThanks();
+    goToThanksPage();
 
 }
 
@@ -114,8 +103,7 @@ async function updateVisited(target_table) {
     }
 }
 
-function goToThanks() {
-    console.log("clicking here");
+function goToThanksPage() {
     document.location.href = "thanks.html";
 }
 
