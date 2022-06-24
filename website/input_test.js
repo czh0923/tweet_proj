@@ -13,6 +13,7 @@ const table_result = base('result');
 // getting tweets and presenting on the webpage
 
 const retrieved_records_id = []
+const retrieved_records_visited = []
 
 const getRecords = async () => {
     try {
@@ -26,9 +27,9 @@ const getRecords = async () => {
     records.forEach(function(record) {
         console.log('Retrieved', record.get('Name'));
         console.log("retrieved record id", record.getId());
-        // console.log('Retrieved', record.get('content'));
         retrieved_records_id.push(record.getId());
         retrieved_records_content.push(record.get('content'));
+        retrieved_records_visited.push(record.get('visited'));
     })
 
     let firstTweet = retrieved_records_content[0];
@@ -46,7 +47,11 @@ getRecords();
 
 // getting chosen values and inserting into database (table_result)
 
-async function getValueAndInsert() {
+async function userSubmit() {
+
+    // getting chosen values
+    let choice_list = ["Choices1"];
+    //let value1 = document.querySelector('input[name=${choice_list[0]}]:checked').value;
     let value1 = document.querySelector('input[name=Choices1]:checked').value;
     let value2 = document.querySelector('input[name=Choices2]:checked').value;
     let value3 = document.querySelector('input[name=Choices3]:checked').value;
@@ -76,10 +81,13 @@ async function getValueAndInsert() {
         }
     ]
 
+    // inserting into result db
     await insert(table_result, collected_data);
 
-    // console.log("here?");
+    // updating times visited in tweets db
+    await updateVisited(table_tweets);
 
+    // go to thanks page
     goToThanks();
 
 }
@@ -94,6 +102,18 @@ async function insert(target_table, data) {
 
 }
 
+async function updateVisited(target_table) {
+    console.log(retrieved_records_visited);
+    for (let i = 0; i < retrieved_records_id.length; i++) {
+        await target_table.update([{
+            "id": retrieved_records_id[i],
+            "fields": {
+              "visited": retrieved_records_visited[i] + 1
+            }
+        }]);
+    }
+}
+
 function goToThanks() {
     console.log("clicking here");
     document.location.href = "thanks.html";
@@ -104,4 +124,4 @@ function goToErrorPage() {
 }
 
 
-document.getElementById("submitButton").addEventListener("click", getValueAndInsert);
+document.getElementById("submitButton").addEventListener("click", userSubmit);
