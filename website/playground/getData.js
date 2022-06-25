@@ -11,11 +11,14 @@ const table_result = base('result');
 
 
 // getting tweets and presenting on the webpage
+
 const totalTweets = 17;
-var randomRow = [...Array(totalTweets).keys()];
-console.log(randomRow);
+var randomRow = [...Array(totalTweets + 1).keys()];
+randomRow.shift();
+// console.log(randomRow);
 
 function shuffle(o) {
+    // source: https://stackoverflow.com/questions/15585216/how-to-randomly-generate-numbers-without-repetition-in-javascript
     for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
     return o;
 };
@@ -41,7 +44,7 @@ const formula = buildFormula(presented_number);
 
 const retrieved_records_id = [];
 
-const getRecords = async () => {
+const getRecords = async (presented_number) => {
     var records = await table_tweets.select({filterByFormula: formula}).firstPage();
     // try {
     //     var records = await table_tweets.select({view: "Grid view"}).eachPage();
@@ -52,7 +55,7 @@ const getRecords = async () => {
 
     let retrieved_records_content = [];
     records.forEach(function(record) {
-        console.log('Retrieved', record.get('Name'));
+        console.log('Retrieved', record.get('rowNum'));
         console.log("retrieved record id", record.getId());
         retrieved_records_id.push(record.getId());
         retrieved_records_content.push(record.get('content'));
@@ -64,4 +67,4 @@ const getRecords = async () => {
     }
 };
 
-getRecords();
+getRecords(presented_number);

@@ -1,46 +1,65 @@
 
-{/* <input type="radio" name="Choices1" id="1D" value="Democrat"> 
-<label> Democrat </label> */}
-
 const presented_number = 10;
 const buttonNames = ["D", "R", "I", "O"];
-const buttonValues = ["Democrat", "Republican", "Independent", "Other"]
+const buttonValues = ["Democrat", "Republican", "Independent", "Other"];
+const tweetDiv = document.getElementById("tweetDiv");
+const choiceButtonDiv = document.getElementById("choiceButtonDiv");
+const finalButtonDiv = document.getElementById("finalButtonDiv");
+console.log(tweetDiv, choiceButtonDiv, finalButtonDiv);
 
-function createMainPage(pageNum) {
+function createMainPage(pageNum, tweetDiv, choiceButtonDiv, finalButtonDiv) {
     for (let i = 0; i < presented_number; i++) {
         console.log("building div");
-        createDiv(i + 1);
+        createTweetContentParagraph(tweetDiv, i + 1);
     }
 
-    createFourButtons(pageNum);
-    createSubmitButton();
+    createFourButtons(choiceButtonDiv, pageNum);
+    createSubmitButton(finalButtonDiv);
 }
 
-function createDiv(i) {
-    let div = document.createElement("div");
+
+function createTweetContentParagraph(tweetDiv, i) {
+
+    // <p id="iTweet">i. </p>
+
+    //let div = document.createElement("div");
 
     let p = document.createElement("p");
     p.innerHTML = i.toString() + ". ";
     p.id = i.toString() + "Tweet";
-    div.appendChild(p);
+    tweetDiv.appendChild(p);
 
-    document.body.appendChild(div);
+    //document.body.appendChild(div);
 }
 
-function createFourButtons(i) {
-    let button_div = document.createElement("div");
+function createFourButtons(choiceButtonDiv, i) {
+    // <div id="choiceButtonDiv">
+    //    <div class="single_button_div">
+    //         <input></input>
+    //         <label><description/></label>
+    //    </div> * 4
+    // </div>
+
+    //let button_div = document.createElement("div");
 
     for (let j = 0; j < buttonNames.length; j++) {
-        createButton(button_div, i.toString() + buttonNames[j], "Choices" + i.toString(), buttonValues[j], "radio");
+        createButton(choiceButtonDiv, i.toString() + buttonNames[j], "Choices" + i.toString(), buttonValues[j], "radio");
     }
 
-    document.body.appendChild(button_div);
+    //document.body.appendChild(button_div);
 
 }
 
+
 function createButton(div, id, name, value, type) {
+
+    // <div class="single_button_div">
+    //     <input></input>
+    //     <label><description/></label>
+    // </div>
+
     let button_div = document.createElement("div");
-    button_div.className = "button_div";
+    button_div.className = "single_button_div";
 
     let button1 = document.createElement("input");
     button1.type = type;
@@ -63,20 +82,21 @@ function createButton(div, id, name, value, type) {
     div.appendChild(button_div);
 }
 
-function createSubmitButton() {
+function createSubmitButton(finalButtonDiv) {
+
     // <button id='submitButton'> Submit </button> 
 
-    let submitButton_div = document.createElement("div");
+    //let submitButton_div = document.createElement("div");
     let submitButton = document.createElement("button");
     submitButton.innerHTML = "Submit";
     submitButton.id = "submitButton";
 
-    submitButton_div.appendChild(submitButton);
+    finalButtonDiv.appendChild(submitButton);
 
-    document.body.appendChild(submitButton_div);
+    //document.body.appendChild(submitButton_div);
 
 
 }
  
-createMainPage(1);
+createMainPage(1, tweetDiv, choiceButtonDiv, finalButtonDiv);
 
