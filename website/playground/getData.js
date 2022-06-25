@@ -12,22 +12,31 @@ const table_result = base('result');
 
 // getting tweets and presenting on the webpage
 const totalTweets = 17;
+var randomRow = [...Array(totalTweets).keys()];
+console.log(randomRow);
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-}
+function shuffle(o) {
+    for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+};
 
-var formula = "OR("
-for (let i = 0; i < presented_number + 3; i++) {
-    if (i != presented_number + 3 - 1) {
-        formula = formula + "{rowNum} = " + getRandomInt(0, totalTweets).toString() + ","
-    } else {
-        formula = formula + "{rowNum} = " + getRandomInt(0, totalTweets).toString() + ")"
+randomRow = shuffle(randomRow);
+
+function buildFormula(presented_number) {
+    var formula = "OR("
+    for (let i = 0; i < presented_number; i++) {
+        if (i != presented_number - 1) {
+            formula = formula + "{rowNum} = " + randomRow[i].toString() + ","
+        } else {
+            formula = formula + "{rowNum} = " + randomRow[i].toString() + ")"
+        }
+        console.log(formula);
     }
-    console.log(formula);
+
+    return formula;
 }
+
+const formula = buildFormula(presented_number);
 
 
 const retrieved_records_id = [];
