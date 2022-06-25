@@ -21,15 +21,17 @@ function createMainPage(pageNum, tweetDiv, choiceButtonDiv, finalButtonDiv) {
 function createTweetContentParagraph(tweetDiv, i) {
 
     // <p id="iTweet">i. </p>
-
-    //let div = document.createElement("div");
+    // <img id="iTweetAttachments" alt="No Attachments"/>
 
     let p = document.createElement("p");
     p.innerHTML = i.toString() + ". ";
     p.id = i.toString() + "Tweet";
     tweetDiv.appendChild(p);
 
-    //document.body.appendChild(div);
+    let img = document.createElement("img");
+    img.id = i.toString() + "TweetAttachments";
+    img.alt = "No Attachments";
+    tweetDiv.appendChild(img);
 }
 
 function createFourButtons(choiceButtonDiv, i) {
@@ -40,13 +42,9 @@ function createFourButtons(choiceButtonDiv, i) {
     //    </div> * 4
     // </div>
 
-    //let button_div = document.createElement("div");
-
     for (let j = 0; j < buttonNames.length; j++) {
         createButton(choiceButtonDiv, i.toString() + buttonNames[j], "Choices" + i.toString(), buttonValues[j], "radio");
     }
-
-    //document.body.appendChild(button_div);
 
 }
 
@@ -73,11 +71,8 @@ function createButton(div, id, name, value, type) {
     let description1 = document.createTextNode(value);
     label1.appendChild(description1);
 
-    //let newline = document.createElement('br');
-
     button_div.appendChild(button1);
     button_div.appendChild(label1);
-    //div.appendChild(newline);
 
     div.appendChild(button_div);
 }
@@ -86,15 +81,11 @@ function createSubmitButton(finalButtonDiv) {
 
     // <button id='submitButton'> Submit </button> 
 
-    //let submitButton_div = document.createElement("div");
     let submitButton = document.createElement("button");
     submitButton.innerHTML = "Submit";
     submitButton.id = "submitButton";
 
     finalButtonDiv.appendChild(submitButton);
-
-    //document.body.appendChild(submitButton_div);
-
 
 }
  

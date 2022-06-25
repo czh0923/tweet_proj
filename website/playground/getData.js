@@ -4,8 +4,6 @@
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: 'keyQUcYkOoAkjWXTV'}).base('app0HYDUVfrBVLFV2');
 
-console.log("here");
-
 const table_tweets = base('user1');
 const table_result = base('result');
 
@@ -54,16 +52,30 @@ const getRecords = async (presented_number) => {
     // }
 
     let retrieved_records_content = [];
+    let retrieved_records_url = [];
     records.forEach(function(record) {
         console.log('Retrieved', record.get('rowNum'));
         console.log("retrieved record id", record.getId());
         retrieved_records_id.push(record.getId());
         retrieved_records_content.push(record.get('content'));
+        retrieved_records_url.push(record.get('attachments'));
     })
 
+    console.log(retrieved_records_url);
+
+    // rendering words
     for (let i = 0; i < presented_number; i++) {
         console.log("rendering innerHTML", retrieved_records_content[i]);
         document.getElementById((i+1).toString() + "Tweet").innerHTML += retrieved_records_content[i]; // div id starting at 1, not 0
+    }
+
+    // rendering pictures
+    for (let i = 0; i < presented_number; i++) {
+        if (retrieved_records_url[i] != undefined) {
+            let thisUrl = retrieved_records_url[i][0].url;
+            console.log("rendering pic", thisUrl);
+            document.getElementById((i+1).toString() + "TweetAttachments").src = thisUrl.toString();
+        }
     }
 };
 
