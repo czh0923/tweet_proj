@@ -6,12 +6,13 @@ const presented_number = 10;
 const buttonNames = ["D", "R", "I", "O"];
 const buttonValues = ["Democrat", "Republican", "Independent", "Other"]
 
-function createMainPage() {
+function createMainPage(pageNum) {
     for (let i = 0; i < presented_number; i++) {
         console.log("building div");
         createDiv(i + 1);
     }
 
+    createFourButtons(pageNum);
     createSubmitButton();
 }
 
@@ -23,16 +24,17 @@ function createDiv(i) {
     p.id = i.toString() + "Tweet";
     div.appendChild(p);
 
-    createFourButtons(div, i);
-
     document.body.appendChild(div);
 }
 
-function createFourButtons(div, i) {
+function createFourButtons(i) {
+    let button_div = document.createElement("div");
 
     for (let j = 0; j < buttonNames.length; j++) {
-        createButton(div, i.toString() + buttonNames[j], "Choices" + i.toString(), buttonValues[j], "radio");
+        createButton(button_div, i.toString() + buttonNames[j], "Choices" + i.toString(), buttonValues[j], "radio");
     }
+
+    document.body.appendChild(button_div);
 
 }
 
@@ -76,5 +78,5 @@ function createSubmitButton() {
 
 }
  
-createMainPage();
+createMainPage(1);
 
