@@ -32,15 +32,15 @@ const getRecords = async() => {
   // return records;
 }
 
-getRecords();
+// getRecords();
 
-console.log("here");
-console.log(retrieved_records);
-console.log("getting zero index", retrieved_records[0]);
+// console.log("here");
+// console.log(retrieved_records);
+// console.log("getting zero index", retrieved_records[0]);
 
 
-let x = retrieved_records[1];
-console.log(x);
+// let x = retrieved_records[1];
+// console.log(x);
 
 
 
@@ -86,3 +86,33 @@ function insert() {
 //     if (err) { console.error(err); return; }
 //     console.log('Retrieved', record.id);
 // });
+
+
+const table_users = base('tweet_user');
+
+async function buildTableUsers(target_table) {
+  let collected_data = [];
+
+  for (let j = 35; j < 150; j=j+10) {
+    collected_data = [];
+    for (let i = j; i < j + 10; i++) {
+      collected_data.push( 
+          { "fields" : {
+              "Name": "user"+i.toString(),
+              "rated": 0
+              }   
+          }
+      );
+    }
+
+    try {
+      console.log(collected_data[0]);
+      await target_table.create(collected_data);
+    } catch (e) {
+      console.log("error", e);
+    }
+  }
+  
+}
+
+buildTableUsers(table_users);

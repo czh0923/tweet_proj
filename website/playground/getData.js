@@ -1,12 +1,4 @@
 
-// connecting to database
-
-var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keyQUcYkOoAkjWXTV'}).base('app0HYDUVfrBVLFV2');
-
-const table_tweets = base('user1');
-const table_result = base('result');
-
 
 // getting tweets and presenting on the webpage
 
@@ -71,10 +63,18 @@ const getRecords = async (presented_number) => {
 
     // rendering pictures
     for (let i = 0; i < presented_number; i++) {
+
         if (retrieved_records_url[i] != undefined) {
+            let aD = document.getElementById((i+1).toString() + "AttachmentDiv");
+
+            let img = document.createElement("img");
+            img.id = (i+1).toString() + "pic";
+            img.alt = "No Pic Attachments";
+            aD.appendChild(img);
+
             let thisUrl = retrieved_records_url[i][0].url;
             console.log("rendering pic", thisUrl);
-            document.getElementById((i+1).toString() + "TweetAttachments").src = thisUrl.toString();
+            img.src = thisUrl.toString();
         }
     }
 };

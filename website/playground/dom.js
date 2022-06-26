@@ -1,11 +1,4 @@
 
-const presented_number = 10;
-const buttonNames = ["D", "R", "I", "O"];
-const buttonValues = ["Democrat", "Republican", "Independent", "Other"];
-const tweetDiv = document.getElementById("tweetDiv");
-const choiceButtonDiv = document.getElementById("choiceButtonDiv");
-const finalButtonDiv = document.getElementById("finalButtonDiv");
-console.log(tweetDiv, choiceButtonDiv, finalButtonDiv);
 
 function createMainPage(pageNum, tweetDiv, choiceButtonDiv, finalButtonDiv) {
     for (let i = 0; i < presented_number; i++) {
@@ -14,24 +7,31 @@ function createMainPage(pageNum, tweetDiv, choiceButtonDiv, finalButtonDiv) {
     }
 
     createFourButtons(choiceButtonDiv, pageNum);
-    createSubmitButton(finalButtonDiv);
+
+    if (pageNum == presented_user_number) {
+        createSubmitButton(finalButtonDiv);
+    } else {
+        createNextButton(finalButtonDiv, pageNum);
+    }
 }
 
 
 function createTweetContentParagraph(tweetDiv, i) {
 
     // <p id="iTweet">i. </p>
-    // <img id="iTweetAttachments" alt="No Attachments"/>
+    // <div id="iAttachmentDiv">
 
     let p = document.createElement("p");
     p.innerHTML = i.toString() + ". ";
     p.id = i.toString() + "Tweet";
     tweetDiv.appendChild(p);
 
-    let img = document.createElement("img");
-    img.id = i.toString() + "TweetAttachments";
-    img.alt = "No Attachments";
-    tweetDiv.appendChild(img);
+    let attachmentDiv = document.createElement("div");
+    attachmentDiv.id = i.toString() + "AttachmentDiv";
+    tweetDiv.appendChild(attachmentDiv);
+
+    let hr = document.createElement("hr");
+    tweetDiv.appendChild(hr);
 }
 
 function createFourButtons(choiceButtonDiv, i) {
@@ -75,6 +75,20 @@ function createButton(div, id, name, value, type) {
     button_div.appendChild(label1);
 
     div.appendChild(button_div);
+}
+
+function createNextButton(finalButtonDiv, pageNum) {
+
+    // <button id='submitButton'> Submit </button> 
+
+    let nextButton = document.createElement("button");
+    nextButton.innerHTML = "Next";
+    nextButton.id = pageNum.toString() + "nextButton";
+
+    finalButtonDiv.appendChild(nextButton);
+
+    nextButton.addEventListener("click", pressNext);
+
 }
 
 function createSubmitButton(finalButtonDiv) {
