@@ -1,0 +1,21 @@
+.progressBarOuter {
+    height: 7px;
+    background-color: whitesmoke;
+    /* position: relative; */
+    border-radius: 7px;
+}
+
+.progressBarOuter .progressBarInner {
+    height: 100%;
+    width: 0%;
+    /* position: absolute; */
+    background-color:cornflowerblue;
+    border-radius: 7px;
+    /* animation: progress-animation 5s infinite; */
+}
+
+@keyframes progress-animation {
+    0% {width: 0%;}
+    100% {width: 100%;}
+
+}

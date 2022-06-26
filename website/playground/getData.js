@@ -15,13 +15,13 @@ function shuffle(o) {
 
 randomRow = shuffle(randomRow);
 
-function buildFormula(presented_number) {
+function buildFormula(presented_number, randomRowNum) {
     var formula = "OR("
     for (let i = 0; i < presented_number; i++) {
         if (i != presented_number - 1) {
-            formula = formula + "{rowNum} = " + randomRow[i].toString() + ","
+            formula = formula + "{rowNum} = " + randomRowNum[i].toString() + ","
         } else {
-            formula = formula + "{rowNum} = " + randomRow[i].toString() + ")"
+            formula = formula + "{rowNum} = " + randomRowNum[i].toString() + ")"
         }
         console.log(formula);
     }
@@ -29,7 +29,7 @@ function buildFormula(presented_number) {
     return formula;
 }
 
-const formula = buildFormula(presented_number);
+const formula = buildFormula(presented_number, randomRow);
 
 
 const retrieved_records_id = [];
