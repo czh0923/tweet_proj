@@ -4,7 +4,7 @@ function createMainPage(pageNum, tweetDiv, choiceButtonDiv, finalButtonDiv) {
     progressBarInner.style.width = (curPageNum / presented_user_number * 100).toString() + "%";
 
     for (let i = 0; i < presented_number; i++) {
-        console.log("building div");
+        // console.log("building div");
         createTweetContentParagraph(tweetDiv, i + 1);
     }
 

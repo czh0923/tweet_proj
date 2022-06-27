@@ -1,11 +1,4 @@
-
-
-// getting tweets and presenting on the webpage
-
-const totalTweets = 17;
-var randomRow = [...Array(totalTweets + 1).keys()];
-randomRow.shift();
-// console.log(randomRow);
+// helper functions 
 
 function shuffle(o) {
     // source: https://stackoverflow.com/questions/15585216/how-to-randomly-generate-numbers-without-repetition-in-javascript
@@ -13,7 +6,12 @@ function shuffle(o) {
     return o;
 };
 
-randomRow = shuffle(randomRow);
+function randomRowNumberGenerator(target_table_size) {
+    let randomRow = [...Array(target_table_size + 1).keys()];
+    randomRow.shift();
+    randomRow = shuffle(randomRow);
+    return randomRow;
+}
 
 function buildFormula(presented_number, randomRowNum) {
     var formula = "OR("
@@ -28,11 +26,6 @@ function buildFormula(presented_number, randomRowNum) {
 
     return formula;
 }
-
-const formula = buildFormula(presented_number, randomRow);
-
-
-const retrieved_records_id = [];
 
 function renderPic(retrieved_records_url) {
     for (let i = 0; i < presented_number; i++) {
@@ -52,36 +45,36 @@ function renderPic(retrieved_records_url) {
     }
 }
 
-const getRecords = async (presented_number) => {
-    var records = await table_tweets.select({filterByFormula: formula}).firstPage();
-    // try {
-    //     var records = await table_tweets.select({view: "Grid view"}).eachPage();
-    // } catch {
-    //     goToErrorPage();
-    //     return;
-    // }
-
-    let retrieved_records_content = [];
-    let retrieved_records_url = [];
-    records.forEach(function(record) {
-        console.log('Retrieved', record.get('rowNum'));
-        console.log("retrieved record id", record.getId());
-        retrieved_records_id.push(record.getId());
-        retrieved_records_content.push(record.get('content'));
-        retrieved_records_url.push(record.get('attachments'));
-    })
-
-    console.log(retrieved_records_url);
-
-    // rendering words
+function renderWords(retrieved_records_content) {
     for (let i = 0; i < presented_number; i++) {
-        console.log("rendering innerHTML", retrieved_records_content[i]);
+        // console.log("rendering innerHTML", retrieved_records_content[i]);
         document.getElementById((i+1).toString() + "Tweet").innerHTML = (i+1).toString() + ". " + retrieved_records_content[i]; // div id starting at 1, not 0
     }
+}
 
-    // rendering pictures
-    // renderPic(retrieved_records_url);
-    
-};
+function getTableSize(tableName) {
+    return userNames_and_numOfTweets[tableName];
+}
 
-getRecords(presented_number);
+
+
+// getting tweets and presenting on the webpage
+
+async function getTweetsOfTheUser(userName) {
+    let target_table = base(userName);
+    let target_table_size = getTableSize(userName);
+    let randomRowNumberArray = randomRowNumberGenerator(target_table_size);
+    let formula = buildFormula(presented_number, randomRowNumberArray);
+
+    let retrieved_records_id = [];
+    let retrieved_records_content = [];
+    let records = await target_table.select({filterByFormula: formula}).firstPage();
+    records.forEach(function(record) {
+        console.log('Retrieved', record.get('rowNum'), record.get('Name'));
+        retrieved_records_id.push(record.getId());
+        retrieved_records_content.push(record.get('content'));
+    })
+
+    // rendering words
+    renderWords(retrieved_records_content);
+}

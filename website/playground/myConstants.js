@@ -5,7 +5,7 @@ const base = new Airtable({apiKey: 'keyQUcYkOoAkjWXTV'}).base('app0HYDUVfrBVLFV2
 
 const table_tweets = base('user1');
 const table_result = base('result');
-
+const table_tweetUsers = base('tweet_user');
 
 
 // constants 
@@ -22,6 +22,10 @@ const finalButton = document.getElementById("finalButton");
 
 const presented_user_number = 20;
 const totalTweeterUsers = 154;
+var tweet_user_names = [];
+const userNames_and_numOfTweets = {
+    "user1":17, "user2":120, "user3":134, "user4":128, "user5":93, "user6":225, "user7":213, "user8":95, "user9":70, "user10":59
+}
 
 var curPageNum = 1;
-// pending https://community.airtable.com/t/how-could-i-find-out-how-many-records-there-are-in-a-table/28008
+
