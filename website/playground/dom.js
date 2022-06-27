@@ -1,18 +1,14 @@
 
 
 function createMainPage(pageNum, tweetDiv, choiceButtonDiv, finalButtonDiv) {
+    progressBarInner.style.width = (curPageNum / presented_user_number * 100).toString() + "%";
+
     for (let i = 0; i < presented_number; i++) {
         console.log("building div");
         createTweetContentParagraph(tweetDiv, i + 1);
     }
 
     createFourButtons(choiceButtonDiv, pageNum);
-
-    if (pageNum == presented_user_number) {
-        createSubmitButton(finalButtonDiv);
-    } else {
-        createNextButton(finalButtonDiv, pageNum);
-    }
 }
 
 
@@ -22,7 +18,7 @@ function createTweetContentParagraph(tweetDiv, i) {
     // <div id="iAttachmentDiv">
 
     let p = document.createElement("p");
-    p.innerHTML = i.toString() + ". ";
+    // p.innerHTML = i.toString() + ". ";
     p.id = i.toString() + "Tweet";
     tweetDiv.appendChild(p);
 
@@ -79,15 +75,16 @@ function createButton(div, id, name, value, type) {
 
 function createNextButton(finalButtonDiv, pageNum) {
 
-    // <button id='submitButton'> Submit </button> 
+    // <button id='nextButton'> Next </button> 
 
     let nextButton = document.createElement("button");
     nextButton.innerHTML = "Next";
-    nextButton.id = pageNum.toString() + "nextButton";
+    //nextButton.id = pageNum.toString() + "nextButton";
+    nextButton.id = "nextButton";
 
     finalButtonDiv.appendChild(nextButton);
 
-    nextButton.addEventListener("click", pressNext);
+    // nextButton.addEventListener("click", pressNext);
 
 }
 
@@ -101,6 +98,17 @@ function createSubmitButton(finalButtonDiv) {
 
     finalButtonDiv.appendChild(submitButton);
 
+}
+
+function createFinalButton(finalButtonDiv) {
+
+    // <button id='finalButton'> Next </button> 
+
+    let finalButton = document.createElement("button");
+    finalButton.innerHTML = "Next";
+    finalButton.id = "finalButton";
+
+    finalButtonDiv.appendChild(finalButton);
 }
  
 createMainPage(1, tweetDiv, choiceButtonDiv, finalButtonDiv);

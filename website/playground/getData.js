@@ -23,7 +23,7 @@ function buildFormula(presented_number, randomRowNum) {
         } else {
             formula = formula + "{rowNum} = " + randomRowNum[i].toString() + ")"
         }
-        console.log(formula);
+        // console.log(formula);
     }
 
     return formula;
@@ -33,6 +33,24 @@ const formula = buildFormula(presented_number, randomRow);
 
 
 const retrieved_records_id = [];
+
+function renderPic(retrieved_records_url) {
+    for (let i = 0; i < presented_number; i++) {
+
+        if (retrieved_records_url[i] != undefined) {
+            let aD = document.getElementById((i+1).toString() + "AttachmentDiv");
+
+            let img = document.createElement("img");
+            img.id = (i+1).toString() + "pic";
+            img.alt = "No Pic Attachments";
+            aD.appendChild(img);
+
+            let thisUrl = retrieved_records_url[i][0].url;
+            console.log("rendering pic", thisUrl);
+            img.src = thisUrl.toString();
+        }
+    }
+}
 
 const getRecords = async (presented_number) => {
     var records = await table_tweets.select({filterByFormula: formula}).firstPage();
@@ -58,25 +76,12 @@ const getRecords = async (presented_number) => {
     // rendering words
     for (let i = 0; i < presented_number; i++) {
         console.log("rendering innerHTML", retrieved_records_content[i]);
-        document.getElementById((i+1).toString() + "Tweet").innerHTML += retrieved_records_content[i]; // div id starting at 1, not 0
+        document.getElementById((i+1).toString() + "Tweet").innerHTML = (i+1).toString() + ". " + retrieved_records_content[i]; // div id starting at 1, not 0
     }
 
     // rendering pictures
-    for (let i = 0; i < presented_number; i++) {
-
-        if (retrieved_records_url[i] != undefined) {
-            let aD = document.getElementById((i+1).toString() + "AttachmentDiv");
-
-            let img = document.createElement("img");
-            img.id = (i+1).toString() + "pic";
-            img.alt = "No Pic Attachments";
-            aD.appendChild(img);
-
-            let thisUrl = retrieved_records_url[i][0].url;
-            console.log("rendering pic", thisUrl);
-            img.src = thisUrl.toString();
-        }
-    }
+    // renderPic(retrieved_records_url);
+    
 };
 
 getRecords(presented_number);
