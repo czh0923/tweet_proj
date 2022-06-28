@@ -1,6 +1,6 @@
 
 
-function createMainPage(pageNum, tweetDiv, choiceButtonDiv, finalButtonDiv) {
+function createMainPage(tweetDiv, choiceButtonDiv) {
     progressBarInner.style.width = (curPageNum / presented_user_number * 100).toString() + "%";
 
     for (let i = 0; i < presented_number; i++) {
@@ -8,7 +8,7 @@ function createMainPage(pageNum, tweetDiv, choiceButtonDiv, finalButtonDiv) {
         createTweetContentParagraph(tweetDiv, i + 1);
     }
 
-    createFourButtons(choiceButtonDiv, pageNum);
+    createFourButtons(choiceButtonDiv);
 }
 
 
@@ -30,7 +30,7 @@ function createTweetContentParagraph(tweetDiv, i) {
     tweetDiv.appendChild(hr);
 }
 
-function createFourButtons(choiceButtonDiv, i) {
+function createFourButtons(choiceButtonDiv) {
     // <div id="choiceButtonDiv">
     //    <div class="single_button_div">
     //         <input></input>
@@ -39,7 +39,7 @@ function createFourButtons(choiceButtonDiv, i) {
     // </div>
 
     for (let j = 0; j < buttonNames.length; j++) {
-        createButton(choiceButtonDiv, i.toString() + buttonNames[j], "Choices" + i.toString(), buttonValues[j], "radio");
+        createButton(choiceButtonDiv, buttonNames[j], "Choices", buttonValues[j], "radio");
     }
 
 }
@@ -73,33 +73,6 @@ function createButton(div, id, name, value, type) {
     div.appendChild(button_div);
 }
 
-function createNextButton(finalButtonDiv, pageNum) {
-
-    // <button id='nextButton'> Next </button> 
-
-    let nextButton = document.createElement("button");
-    nextButton.innerHTML = "Next";
-    //nextButton.id = pageNum.toString() + "nextButton";
-    nextButton.id = "nextButton";
-
-    finalButtonDiv.appendChild(nextButton);
-
-    // nextButton.addEventListener("click", pressNext);
-
-}
-
-function createSubmitButton(finalButtonDiv) {
-
-    // <button id='submitButton'> Submit </button> 
-
-    let submitButton = document.createElement("button");
-    submitButton.innerHTML = "Submit";
-    submitButton.id = "submitButton";
-
-    finalButtonDiv.appendChild(submitButton);
-
-}
-
 function createFinalButton(finalButtonDiv) {
 
     // <button id='finalButton'> Next </button> 
@@ -111,5 +84,5 @@ function createFinalButton(finalButtonDiv) {
     finalButtonDiv.appendChild(finalButton);
 }
  
-createMainPage(1, tweetDiv, choiceButtonDiv, finalButtonDiv);
+createMainPage(tweetDiv, choiceButtonDiv);
 
