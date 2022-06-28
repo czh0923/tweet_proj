@@ -1,5 +1,6 @@
 function createSubmitData() {
     // [[d1,d2,...,d10], [d11,...,d20], ..., [d51,d52]]
+    // because the api only supports inserting ten records at one time
     let collected_data = [];
 
     for (let i = 0; i < presented_user_number; i = i + 10) {
@@ -37,13 +38,28 @@ async function insert(target_table, data) {
 
 }
 
+async function updateVisitedNum(target_table) {
+    for (let i = 0; i < presented_user_number; i++) {
+        await target_table.update([{
+            "id": tweet_user_recordIDs[i],
+            "fields": {
+              "ratedTimes": tweet_user_prevVisitedTimes[i] + 1
+            }
+        }]);
+    }
+}
+ 
 function goToThanksPage() {
     document.location.href = "thanks.html";
 }
 
 async function submitData() {
+
     let collected_data = createSubmitData();
     await insert(table_collectedData, collected_data);
-    console.log("submitting completed");
+    console.log("submit complete");
+
+    await updateVisitedNum(table_tweetUsers);
+    console.log("update complete");
     //goToThanksPage();
 }
