@@ -4,7 +4,6 @@
 
 - HTML: https://www.youtube.com/watch?v=kUMe1FH4CHE
 
-
 #### pyscript not working? 
 - https://pyscript.net/
 - https://community.anaconda.cloud/t/connecting-to-databases-using-sqlalchemy/21298/2
@@ -16,4 +15,4 @@
 - Airtable and javascript API: https://github.com/airtable/airtable.js/
 - https://community.airtable.com/t/help-connecting-to-airtable-api-to-make-a-basic-console-log-output/33730
 
-
+- CSS: https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=73s
