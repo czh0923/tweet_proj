@@ -1,0 +1,50 @@
+/* ::placeholder { 
+    color: white;
+}
+
+input[type=text] {
+    background-color: cornflowerblue;
+    color: white;
+} */
+
+body {
+    font-size: large;
+}
+
+#participantInfoDiv {
+    /* margin-top: 20px; */
+    /* margin-top: 30%;
+    margin-left: 30%; */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input {
+    /* margin-top: 10px; */
+    height: 40px;
+    font-size: large;
+    border-radius: 7px;
+    border: 0;
+}
+
+
+#enterButton {
+    margin-top: 20px;
+    margin-left: 110%; 
+    /* margin-bottom: 30px;  */
+    width: 90px;
+    height: 54px;
+    /* float: right; */
+    font-size: large;
+    color: aliceblue;
+    background-color: cornflowerblue;
+    border-style: hidden;
+    border-radius: 7px;
+}
+
+#enterButton:hover {
+    background-color: rgb(93, 141, 231);
+}
+  

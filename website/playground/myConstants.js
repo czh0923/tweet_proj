@@ -1,10 +1,11 @@
 // connecting to database
 
 const Airtable = require('airtable');
-const base = new Airtable({apiKey: 'keyQUcYkOoAkjWXTV'}).base('app0HYDUVfrBVLFV2');
+const base = new Airtable({apiKey: 'keyQUcYkOoAkjWXTV'}).base('appQM4HHXqwvglt66');
+const base_result = new Airtable({apiKey: 'keyQUcYkOoAkjWXTV'}).base('appJjZIZ2XbDCD5Gm');
 
-const table_collectedData = base('collected_data');
 const table_tweetUsers = base('tweet_user');
+const table_collectedData = base_result('collected_data');
 
 
 // constants 
@@ -20,19 +21,29 @@ const finalButtonDiv = document.getElementById("finalButtonDiv");
 const finalButton = document.getElementById("finalButton");
 
 
-const presented_user_number = 11;
-const totalTweeterUsers = 154;
+const presented_user_number = 5;
+//const totalTweeterUsers = 154;
 var tweet_user_names = [];
 var tweet_user_ids = [];
 var tweet_user_recordIDs = [];
 var tweet_user_prevVisitedTimes = [];
 const userNames_and_numOfTweets = {
-    "user1":17, "user2":120, "user3":134, "user4":128, "user5":93, "user6":225, "user7":213, "user8":95, "user9":70, "user10":59
+    "user1":17, "user2":120, "user3":134, "user4":128, "user5":93, "user6":225, "user7":213, "user8":39, "user9":33, "user10":35
 }
 
 var curPageNum = 1;
 
 var participantInput = []
 
-var participantID = "dummy";
+const participantID = localStorage.getItem("participantID");
 
+
+// helper functions
+function goToThanksPage() {
+    document.location.href = "thanks.html";
+}
+
+function goToErrorPage(e) {
+    document.location.href = "error.html";
+    console.log(e);
+}

@@ -68,7 +68,15 @@ async function getTweetsOfTheUser(userName) {
 
     let retrieved_records_id = [];
     let retrieved_records_content = [];
-    let records = await target_table.select({filterByFormula: formula}).firstPage();
+
+    try {
+        var records = await target_table.select({filterByFormula: formula}).firstPage();
+    } catch (e) {
+        goToErrorPage(e);
+        return;
+    }
+
+    // let records = await target_table.select({filterByFormula: formula}).firstPage();
     records.forEach(function(record) {
         console.log('Retrieved', record.get('rowNum'), record.get('Name'));
         retrieved_records_id.push(record.getId());

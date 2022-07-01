@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title> This is the first page </title>
+        <link rel="stylesheet" href="firstpage.css">
+    </head>
+    <body>
+        <div id="participantInfoDiv">
+            <label for="participantIdInput"> Participant ID: </label>
+            
+            <input type="text" id="participantIdInput" placeholder="put anything for now"/>
+            <br>
+            <button id="enterButton"> Enter </button>
+        </div>
+
+        <!-- <div id="participantInfoEnterDiv">
+            <button id="enterButton"> Enter </button>
+        </div> -->
+
+        <div>
+            <script type="text/javascript">
+                const enterButton = document.getElementById("enterButton");
+                console.log(enterButton);
+                function clickEnterButton() {
+                    let participantIdInput = document.getElementById("participantIdInput").value;
+                    if (participantIdInput == "") {
+                        alert("You must enter an ID");
+                        return;
+                    }
+                    localStorage.setItem("participantID", participantIdInput);
+                    document.location.href = "dom.html";
+                }
+                enterButton.addEventListener("click", clickEnterButton);
+            </script>
+        </div>
+
+    </body>
+</html>
