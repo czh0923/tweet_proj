@@ -1,7 +1,7 @@
 const tweetDiv = document.getElementById("tweetDiv");
 
 
-myurl = "/../fetch";
+myurl = "https://airtable-middle.herokuapp.com/fetch";
 
 async function getData(url) {
     let res = await fetch(url);
@@ -9,11 +9,10 @@ async function getData(url) {
 
     console.log(data);
 
-    return data;
+    let p = document.createElement("p");
+    p.innerHTML = data.names;
+    tweetDiv.appendChild(p);
+
 }
 
-const data = getData(myurl);
-
-let p = document.createElement("p");
-p.innerHTML = data;
-tweetDiv.appendChild(p);
+getData(myurl);

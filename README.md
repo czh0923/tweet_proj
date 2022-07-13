@@ -25,10 +25,5 @@
 
 - hide API key: https://www.youtube.com/watch?v=ZGymN8aFsv4&t=98s
 
-pending: https://www.youtube.com/watch?v=NpWWOS-tC5s
-https://www.indiehackers.com/post/hide-airtable-api-key-from-front-end-9e940744a0
-https://www.youtube.com/watch?v=fgTGADljAeg&list=PLZlA0Gpn_vH_uZs4vJMIhcinABSTUH2bY&index=4
-https://stackoverflow.com/questions/53648652/how-to-use-environment-variables-in-github-page
-https://formspark.io/
-https://www.indiehackers.com/post/hide-airtable-api-key-from-front-end-9e940744a0
+pending: beacon API https://developer.mozilla.org/en-US/docs/Web/API/Beacon_API
 
