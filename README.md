@@ -25,6 +25,9 @@
 
 - hide API key: https://www.youtube.com/watch?v=ZGymN8aFsv4&t=98s
 
-pending: beacon API https://developer.mozilla.org/en-US/docs/Web/API/Beacon_API
 - Selenium: https://www.youtube.com/watch?v=Xjv1sY630Uc&list=PLzMcBGfZo4-n40rB1XaJ0ak1bemvlqumQ&index=1
+
+#### scraping tweets
+
+- https://github.com/mehranshakarami/AI_Spectrum/blob/main/2022/snscrape/tweets.py
 

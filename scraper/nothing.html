@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title> Nothing </title>
+        <script src="../website/airtable.browser.js"></script>
+    </head>
+    <body>
+
+        <img id='1'>
+        <video id='2' autoplay muted loop></video>
+        <video id='3' autoplay muted loop></video>
+
+        <div>
+            <script type="text/javascript">
+
+
+                async function getRecord() {
+
+                    var Airtable = require('airtable');
+                    var base = new Airtable({apiKey: 'keyQUcYkOoAkjWXTV'}).base('appxhUq3LjMkkjufq');
+
+                    const recordURL = [];
+
+                    await base('Table 1').select({
+                        view: "Grid view"
+                    }).eachPage(function page(records, fetchNextPage) {
+
+                        records.forEach(function(record) {
+                            recordURL.push(record.get('URL'));
+                        });
+
+                        fetchNextPage();
+
+                    });
+                    
+                    console.log(recordURL);
+
+                    document.getElementById('1').src = recordURL[0];
+                    document.getElementById('2').src = recordURL[1];
+                    document.getElementById('3').src = recordURL[2];
+                    return recordURL;
+
+                }
+
+                getRecord();
+                
+                
+            </script>
+        </div>
+
+    </body>
+</html>
