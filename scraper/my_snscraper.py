@@ -1,7 +1,7 @@
 import snscrape.modules.twitter as sntwitter
 import pandas as pd
 
-query = "(from:PrinceDuckiee) since:2022-08-01"
+query = "(from:elonmusk) since:2022-08-01"
 tweets = []
 limit = 100
 
@@ -19,17 +19,16 @@ for tweet in sntwitter.TwitterSearchScraper(query).get_items():
         if tweet.media:
             for medium in tweet.media:
                 if isinstance(medium, sntwitter.Photo):
-                    #mediaurl.append(medium.fullUrl)
-                    pass
+                    mediaurl.append(medium.fullUrl)
+                    # pass
                 elif isinstance(medium, sntwitter.Video):
-                    # for v in medium.variants:
-                    #     mediaurl.append(v.url.replace("?tag=13", "").replace("?tag=10", ""))
-                    pass
+                    for v in medium.variants:
+                        mediaurl.append(v.url.replace("?tag=13", "").replace("?tag=10", ""))
+                    # pass
                 elif isinstance(medium, sntwitter.Gif):
                     for v in medium.variants:
                         mediaurl.append(v.url)
                         # mediaurl.append(v.url.replace("?tag=13", "").replace("?tag=10", ""))
-                    #print("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
         
         if mediaurl:
             tweets.append(mediaurl)
